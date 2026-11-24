@@ -80,4 +80,6 @@ export const SERVICES = [
   },
 ];
 
-export const API_BASE = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5100';
+export const API_BNAME = process.env.NEXT_PUBLIC_API_URL ||
+  (process.env.NODE_ENV === 'development' ? 'http://localhost:5100' : '');
+export const API_BASE = API_BNAME.replace(/\/$/, '');

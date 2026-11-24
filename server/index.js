@@ -5,20 +5,22 @@ import fs from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
 import { fileURLToPath } from 'url';
-
-dotenv.config();
+import Next from 'next';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+dotenv.config({ path: path.join(__dirname, '.env') });
+
 const LEADS_FILE = path.join(__dirname, 'data', 'leads.json');
 const APPLICATIONS_FILE = path.join(__dirname, 'data', 'applications.json');
 
 const app = express();
-const PORT = process.env.PORT || 5100;
+const PORT = Number(process.env.PORT || 5100);
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || 'http://localhost:3000';
 const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD || 'Techno@Admin123';
 const ADMIN_TOKEN_SECRET = process.env.ADMIN_TOKEN_SECRET || 'change-this-secret';
 
+app.disable('x-powered-by');
 app.use(cors({ origin: CLIENT_ORIGIN, credentials: true }));
 app.use(express.json());
 
@@ -64,7 +66,6 @@ function verifyToken(token) {
   try {
     const ok = crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
     if (!ok) return false;
-    // 7 day expiry
     return Date.now() - Number(ts) < 7 * 24 * 60 * 60 * 1000;
   } catch {
     return false;
@@ -199,6 +200,30 @@ app.get('/api/admin/applications', requireAdmin, async (_req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+const nextApp = Next({
+  dev: process.env.NODE_ENV !== 'production',
+  dir: path.join(__dirname, '..', 'client'),
 });
+const nextHandle = nextApp.getRequestHandler();
+
+function isApiRoute(req) {
+  return req.path.startsWith('/api/');
+}
+
+app.all('*', (req, res, next) => {
+  if (isApiRoute(req)) return next();
+  return nextHandle(req, res);
+});
+
+async function start() {
+  await nextApp.prepare();
+  const server = app.listen(PORT, '0.0.0.0', () => {
+    console.log(`TechnoElevate unified server listening on port ${PORT}`);
+  });
+  server.on('error', (err) => {
+    console.error(err);
+    process.exit(1);
+  });
+}
+
+start();
