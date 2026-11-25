@@ -27,7 +27,12 @@
 
 // Automatically generates a Google Maps search from the full office address above.
 export const OFFICE_MAP_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(SITE.address)}`;
-export const SITE_URL = (process.env.NEXT_PUBLIC_SITE_URL || 'https://technoelevate.tech').replace(/\/$/, '');
+export const SITE_URL =
+  (process.env.NEXT_PUBLIC_SITE_URL || 'https://technoelevate.tech').replace(/\/$/, '');
+// NOTE: on deployments where the environment already sets
+// NEXT_PUBLIC_SITE_URL to the previous render domain, update that
+// variable to 'https://technoelevate.tech' so the sitemap, robots.txt,
+// canonical tags and structured data all use the canonical domain.
 
 export const SERVICES = [
   {

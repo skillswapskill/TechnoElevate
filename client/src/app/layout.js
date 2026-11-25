@@ -15,11 +15,13 @@ const outfit = Outfit({
 });
 
 const title = `${SITE.shortName} | Software Development & IT Services`;
+const description =
+  "TechnoElevate Private Limited provides custom software development, website building, digital marketing, LLM training, data leveling, IT outsourcing, and corporate contracting services for growing businesses. Partner with a software development company in India.";
 
 export const metadata = {
   metadataBase: new URL(SITE_URL),
   title,
-  description: SITE.description,
+  description,
   keywords: [
     "software development company",
     "IT services India",
@@ -31,6 +33,10 @@ export const metadata = {
     "data leveling services",
     "IT outsourcing services",
     "corporate contracting services",
+    "software development company India",
+    "web development services",
+    "AI solutions",
+    "remote IT team",
   ],
   applicationName: SITE.shortName,
   authors: [{ name: SITE.name, url: SITE_URL }],
@@ -44,9 +50,9 @@ export const metadata = {
     url: "/",
     siteName: SITE.name,
     title,
-    description: SITE.description,
+    description,
   },
-  twitter: { card: "summary_large_image", title, description: SITE.description },
+  twitter: { card: "summary_large_image", title, description },
   robots: {
     index: true,
     follow: true,
@@ -74,7 +80,13 @@ const structuredData = {
       identifier: { "@type": "PropertyValue", propertyID: "CIN", value: SITE.cin },
       url: SITE_URL,
       logo: `${SITE_URL}/icon.svg`,
-      description: SITE.description,
+      description,
+      slogan: SITE.tagline,
+      areaServed: "IN",
+      sameAs: {
+        email: SITE.emails.admin,
+        "@id": `mailto:${SITE.emails.admin}`,
+      },
       email: SITE.emails.admin,
       telephone: SITE.phones.company,
       address: SITE.address,

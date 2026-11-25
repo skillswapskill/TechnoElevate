@@ -80,6 +80,29 @@ button, input, textarea, select { font: inherit; }
   height: 1px;
   background: currentColor;
 }
+.services-intro {
+  margin-bottom: 2.5rem;
+}
+.services-intro .section-sub {
+  margin-bottom: 0.9rem;
+}
+.services-intro-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 1.25rem;
+  margin: 0 0 2.5rem;
+  padding-left: 0;
+  list-style: none;
+}
+.services-intro-links a {
+  color: var(--primary);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.services-intro-links a:hover {
+  text-decoration: underline;
+}
 
 .glass {
   background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.04));

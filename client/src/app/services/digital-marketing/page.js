@@ -6,7 +6,7 @@ const service = SERVICES.find((s) => s.slug === "digital-marketing");
 export const metadata = {
   title: `${service.title} | Techno Elevate`,
   description: service.description,
-  keywords: ["digital marketing services", "SEO services", "social media marketing", "performance marketing", "Techno Elevate"],
+  keywords: ["digital marketing services", "SEO services", "social media marketing", "performance marketing", "Techno Elevate", "website marketing", "brand awareness", "Google Ads", "content marketing", "digital agency"],
   alternates: { canonical: `/services/${service.slug}` },
   openGraph: { title: service.title, description: service.description, url: `/services/${service.slug}`, type: "website" },
   twitter: { card: "summary_large_image", title: service.title, description: service.description },

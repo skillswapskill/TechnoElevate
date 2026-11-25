@@ -29,6 +29,7 @@ export default function HomePage() {
               {SITE.name} is a software and IT services company helping organizations solve
               business challenges through software engineering, AI, data, and digital solutions.
             </p>
+            <p className="section-sub">{SITE.tagline}</p>
             <div className="hero-actions">
               <Link href="#contact" className="btn btn-primary">Start a project <Icon name="arrow" size={18} /></Link>
               <Link href="#services" className="btn btn-secondary">Explore our services</Link>
@@ -80,6 +81,18 @@ export default function HomePage() {
               <p className="section-sub">Six focused service lines covering software development, digital growth, AI, data, and corporate delivery — shaped around your business objectives.</p>
             </div>
           </MotionReveal>
+          <div className="services-intro">
+            <p className="section-sub">
+              From custom website building and software development to digital marketing, LLM training, data leveling, IT outsourcing, and corporate contracting, we deliver secure, scalable, and business-first technology solutions for growing organizations.
+            </p>
+            <div className="services-intro-links">
+              {SERVICES.map((s) => (
+                <Link key={s.slug} href={`/services/${s.slug}`}>
+                  {s.title}
+                </Link>
+              ))}
+            </div>
+          </div>
           <div className="grid-3 services-grid">
             {SERVICES.map((service, index) => (
               <MotionReveal key={service.slug} className="service-reveal" delay={index * 0.09}>
